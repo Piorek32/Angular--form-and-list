@@ -1,0 +1,71 @@
+
+<div class="searchBox">
+<label>Wyszukaj</label>
+<input  [(ngModel)]="searchTerm"  (ngModelChange)="searchItem()" type="text">
+<label for="">Categories</label>
+<select (change)="changeCategories($event.target.value)">
+  <option  *ngFor="let category of categories">{{category}}</option>
+</select>
+</div>
+<table  class="table" style="width:50%">
+
+  <tr>
+    <th>nr</th>
+    <th (click)="sortByName()">name</th>
+    <th>photo</th> 
+    <th (click)="sortByCategory()">category </th>
+    <th>price</th>
+    <th>discription</th>
+    <th>comments</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngFor="let product of filteredTab; let i = index" >
+      <ng-container *ngIf="product.page===page">
+    <th>{{i + 1}}</th>
+    <th>{{product.name}}
+    </th>
+    <th> <img src="{{product.img}}" alt=""></th> 
+    <th>{{product.category}}</th>
+    <th>{{product.price}}</th>
+    <th>{{product.discription}}</th>
+    <th> <div *ngFor="let comment of product.comment; let i = index" >
+        <p>{{comment}}</p>
+    </div> </th>
+    <th class="actionBtn" >
+      <button type="button" class="btn btn-danger" (click)="removeItem(product)">X</button>
+      <button type="button" class="btn btn-warning" (click)="edit(product)">Edit</button>
+      <button type="button" class="btn btn-primary" (click)="addComment(product)">Comment</button>
+    </th>
+      </ng-container>
+  </tr>
+  
+</table>
+<div class="commentBox">
+<div class="form-group">
+<label *ngIf="showInputComment">Comment</label>
+<input class="form-control" *ngIf="showInputComment" [(ngModel)]="comment" type="text">
+<button type="button" class="btn btn-success" *ngIf="showInputComment" (click)="apply()">apply</button>
+</div>
+<div class="form-group">
+
+<button type="button" class="btn btn-primary" (click)= pageBack()>previous page</button>
+<button type="button" class="btn btn-primary" (click)= pageForward()>next page</button>
+</div>
+</div>
+
+<div class="editBox" *ngIf="form">
+    <h2 class="py-4">Edit Product</h2>
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+      
+      
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+          <button type="reset" class="btn btn-outline-primary" (click)="cancel()">Cancel</button>
+        
+      </div>
+    </form>
+  </div>

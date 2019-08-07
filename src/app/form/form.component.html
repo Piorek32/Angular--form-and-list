@@ -1,0 +1,28 @@
+<div class="container">
+<form [formGroup]="form">
+  
+    <div class="form-group">
+      <label  for="name" >name</label>
+      <input class="form-control" id="name" formControlName="name" type="text">
+      </div>
+      <div class="form-group">
+      <label >img</label>
+      <input class="form-control" formControlName="img" type="text">
+      </div>
+      <div class="form-group">
+      <label  >category</label>
+      <input class="form-control" formControlName="category" type="text">
+      </div>
+      <div class="form-group">
+      <label>disscription</label>
+      <input class="form-control" formControlName="discription" type="text">
+      </div>
+      <div class="form-group">
+      <label>price</label>
+      <input class="form-control" formControlName="price" type="text">
+      
+      </div>
+</form>
+
+<button (click)="saveForm()" type="button" class="btn btn-primary btn-lg btn-block">Save</button>
+</div>
